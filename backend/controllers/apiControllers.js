@@ -1,5 +1,8 @@
 import fetch from "node-fetch";
 import Schedule from "../models/schedule.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export function checkHealth (req,res) {
     res.status(200).json({status: "API is healthy"});
@@ -52,3 +55,29 @@ export async function getSchedule (req,res) {
         return res.status(500).json({error:"Please check Flask API"});
     }
 }
+
+// export async function latestNews (req, res) {
+//     try{
+//         const response = await fetch(`https://newsapi.org/v2/everything?q=Formula1%201&from=2025-08-09&sortBy=popularity&apiKey=
+//             `);
+        
+//         if(!response.ok) {
+//             console.error(`News API returned status: ${response.status}`);
+//             return res.status(502).json({error: "News API is unavailable"});
+//         }
+
+//         const data = await response.json();
+        
+//         if(data.articles && data.articles.length > 0) {
+//             const latestArticle = data.articles[0];
+//             const title = latestArticle.title;
+//             const content = latestArticle.description || latestArticle.content;
+//             res.status(200).json({title, content});
+//         } else {
+//             res.status(404).json({error: "No news articles found"});
+//         }
+//     } catch (error) {
+//         console.error("Failed to fetch news", error.message);
+//         res.status(500).json({error: "Failed to fetch news"});
+//     }
+// }

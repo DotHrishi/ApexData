@@ -25,7 +25,10 @@ connection()
   })
   .catch((error) => {
     console.error("Failed to connect to MongoDB:", error);
-    process.exit(1);
+    // Start server anyway for news endpoint
+    app.listen(PORT, () => {
+      console.log(`Server is running on PORT: ${PORT} (without MongoDB)`);
+    });
   });
 
 app.on("error", (error) => {
