@@ -9,24 +9,24 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             <div className="flex-shrink-0">
               <h1 className="text-2xl font-bold text-white tracking-wider">
-                <img src="../public/Logo2.png" alt="ApexData Logo" className="w-44 h-14"/>
+                <a href="/"><img src="../public/Logo2.png" alt="ApexData Logo" className="w-44 h-14"/></a>
               </h1>
             </div>
             
             {/* Desktop Navigation Links */}
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-8">
-                <a href="#" className="text-white hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200">
+                <a href="/" className="text-white hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200">
                   Home
                 </a>
                 <a href="#" className="text-gray-300 hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200">
-                  Analyze
+                  Drivers
                 </a>
-                <a href="#" className="text-gray-300 hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200">
+                <a href="/teams" className="text-gray-300 hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200">
                   Teams
                 </a>
                 <a href="#" className="text-gray-300 hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200">
-                  News
+                  Technical
                 </a>
               </div>
             </div>

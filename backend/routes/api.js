@@ -1,5 +1,5 @@
 import express from "express";
-import { checkHealth, getSchedule, latestNews } from "../controllers/apiControllers.js";
+import { checkHealth, getSchedule, getTeams } from "../controllers/apiControllers.js";
 
 const router = express.Router();
 

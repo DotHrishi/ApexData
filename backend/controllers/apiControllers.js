@@ -81,3 +81,6 @@ export async function getSchedule (req,res) {
 //         res.status(500).json({error: "Failed to fetch news"});
 //     }
 // }
+
+export async function getTeams (req, res) {
+}
