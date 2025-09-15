@@ -15,11 +15,11 @@ const Hero = () => {
           giving fans and professionals the edge they need on and off the track.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-3 rounded-lg font-semibold hover:from-red-700 hover:to-red-800 transition-all duration-200 shadow-lg">
+          <button className="bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-3 rounded-lg font-semibold hover:from-red-700 hover:to-red-800 transition-all duration-200 shadow-lg" onClick={() => window.location.href = '/analyze'}>
             Analyze Data
           </button>
           <button className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-all duration-200" onClick={() => window.location.href = '/teams'}>
-            Teams
+            Technical Guides
           </button>
         </div>
       </div>

@@ -25,8 +25,8 @@ const Navbar = () => {
                 <a href="/teams" className="text-gray-300 hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200">
                   Teams
                 </a>
-                <a href="#" className="text-gray-300 hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200">
-                  Technical
+                <a href="/technical_guides" className="text-gray-300 hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200">
+                  Technical Guides
                 </a>
               </div>
             </div>

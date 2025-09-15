@@ -1,13 +1,18 @@
 import HomePage from "./pages/HomePage.jsx";
 import Teams from "./pages/Teams.jsx"
+import AnalyzeData from "./pages/AnalyzeData.jsx"
+import TechGuides from "./pages/TechGuides.jsx";
 import {Routes, Route} from "react-router-dom";
 function App() {
 
   return (
     <>
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/teams" element={<Teams />} />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/teams" element={<Teams />} />
+        <Route path="/health" />
+        <Route path="/analyze" element={<AnalyzeData />} />
+        <Route path="/technical_guides" element={<TechGuides />} />
       </Routes>
     </>
   );
