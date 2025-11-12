@@ -6,13 +6,13 @@ import NewsCard from "../components/UpcomingRace";
 
 const HomePage = () => {
   return (
-    <>
+    <div className="">
     <Navbar />
     <Hero />
     <NewsCard />
     <PastResults />
     <Footer />
-    </>
+    </div>
   )
 }
 

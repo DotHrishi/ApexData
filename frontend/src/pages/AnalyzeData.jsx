@@ -1,37 +1,18 @@
-import { useState } from "react";
+import OptionsSelector from '../components/OptionsSelector'
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
 
-const Analyze = () => {
-  const [image, setImage] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  const fetchGraph = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("http://localhost:3000/api/analyzeData"); // Your Express route
-      const blob = await response.blob();
-      setImage(URL.createObjectURL(blob));
-    } catch (err) {
-      console.error("Error fetching graph:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+const AnalyzeData = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center space-y-6 bg-gray-900 text-white">
-      <h1 className="text-4xl font-bold">Driver Speed Analysis</h1>
-      <button
-        onClick={fetchGraph}
-        className="bg-red-600 px-6 py-3 rounded-lg hover:bg-red-700 transition"
-      >
-        {loading ? "Loading..." : "Generate Graph"}
-      </button>
-
-      {image && (
-        <img src={image} alt="Driver Speed" className="mt-6 rounded-lg shadow-lg" />
-      )}
+    <div>
+      <Navbar />
+      <h1 className='text-4xl fontStyle p-4 m-4 font-bold'><span className='text-blue-600'>DRIVER <span className='text-red-600'>vs</span> DRIVER</span> ANALYSIS</h1>
+      <div>
+        <OptionsSelector />
+      </div>
+      <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Analyze;
+export default AnalyzeData

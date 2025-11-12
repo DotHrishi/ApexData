@@ -6,3 +6,28 @@
   font-weight: 400;
   font-style: normal;
 }
+
+/* Theme: light by default */
+:root {
+  --bg: #ffffff;
+  --fg: #000000;
+  --muted: #4b5563; /* gray-600 */
+}
+
+/* Theme: dark */
+.dark {
+  --bg: #000000;
+  --fg: #ffffff;
+  --muted: #9ca3af; /* gray-400 */
+}
+
+/* Apply global foreground/background */
+html, body, #root {
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+/* Smooth color transition for page */
+body {
+  transition: background-color 200ms ease, color 200ms ease;
+}

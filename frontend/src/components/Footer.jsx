@@ -22,11 +22,7 @@ const Footer = () => {
             <a href="#" className="text-gray-300 hover:text-red-400 transition-colors duration-200">Terms</a>
             <a href="#" className="text-gray-300 hover:text-red-400 transition-colors duration-200">Contact</a>
             
-            {/* Live indicator */}
-            <div className="flex items-center space-x-1">
-              <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-              <span className="text-gray-400">Live</span>
-            </div>
+           
           </div>
         </div>
       </div>
