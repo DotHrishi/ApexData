@@ -13,6 +13,12 @@ app.use(express.json());
 app.use('/', healthRoutes);
 app.use('/api/analytics', analyticsRoutes);
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+
+module.exports = app;
+
+
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}

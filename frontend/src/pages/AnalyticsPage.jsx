@@ -6,36 +6,34 @@ import { LapTimeChart, TelemetryChart } from '../components/Charts';
 import useAnalytics from '../hooks/useAnalytics';
 
 const AnalyticsPage = () => {
-  // Selection State
+
   const [selectedYear, setSelectedYear] = useState('2023');
   const [selectedEvent, setSelectedEvent] = useState('');
   const [selectedSession, setSelectedSession] = useState('');
   const [selectedDrivers, setSelectedDrivers] = useState([]);
 
-  // Data Options State
+
   const [events, setEvents] = useState([]);
   const [sessions, setSessions] = useState([]);
   const [drivers, setDrivers] = useState([]);
 
-  // Chart Data State
+
   const [lapData, setLapData] = useState(null);
   const [telemetryData, setTelemetryData] = useState(null);
 
-  // UI State
+
 
   const [error, setError] = useState(null);
 
   const years = ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'];
 
-  // Custom Hook
   const { loading, error: hookError, fetchEvents, fetchSessions, fetchDrivers, analyzeRace } = useAnalytics();
   
-  // Combine internal and hook error
+
   useEffect(() => {
     if (hookError) setError(hookError);
   }, [hookError]);
 
-  // 1. Fetch Events when Year changes
   useEffect(() => {
     if (!selectedYear) return;
     const loadEvents = async () => {
@@ -45,7 +43,6 @@ const AnalyticsPage = () => {
     loadEvents();
   }, [selectedYear, fetchEvents]);
 
-  // 2. Fetch Sessions when Event changes
   useEffect(() => {
     if (!selectedEvent) {
         setSessions([]);
@@ -58,7 +55,6 @@ const AnalyticsPage = () => {
     loadSessions();
   }, [selectedEvent, selectedYear, fetchSessions]);
 
-  // 3. Fetch Drivers when Session changes
   useEffect(() => {
     if (!selectedSession) {
         setDrivers([]);
@@ -71,7 +67,6 @@ const AnalyticsPage = () => {
     loadDrivers();
   }, [selectedSession, fetchDrivers]);
 
-  // Handler for Driver Toggle
   const handleDriverToggle = (driverNum) => {
     if (selectedDrivers.includes(driverNum)) {
       setSelectedDrivers(selectedDrivers.filter(d => d !== driverNum));
@@ -82,7 +77,6 @@ const AnalyticsPage = () => {
     }
   };
 
-  // MAIN ANALYSIS FUNCTION
   const handleAnalyze = async () => {
     if (!selectedSession || selectedDrivers.length === 0) {
         setError("Please select a session and at least one driver.");
@@ -96,7 +90,7 @@ const AnalyticsPage = () => {
     const result = await analyzeRace(selectedSession, selectedDrivers);
     
     if (result) {
-        // Backend now returns formatted chart data directly
+
         const { lapData, telemetryData } = result;
         setLapData(lapData);
         setTelemetryData(telemetryData);
@@ -108,7 +102,6 @@ const AnalyticsPage = () => {
     <div className="bg-black min-h-screen flex flex-col text-white">
       <Navbar />
 
-      {/* Background */}
       <div className="fixed inset-0 pointer-events-none">
           <div className="absolute inset-0 bg-[linear-gradient(115deg,_#000_35%,_#08152e_60%,_#0b1c3f_100%)]" />
           <div className="absolute -bottom-56 -right-56 w-[1000px] h-[1000px] bg-gradient-to-r from-black-400 from-10% via-red-500 via-30% to-blue-600 to-70% opacity-20 blur-3xl rounded-full" />
@@ -151,7 +144,6 @@ const AnalyticsPage = () => {
             {error && <p className="text-red-400 mt-4">{error}</p>}
         </div>
 
-        {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {lapData && (
                 <div className="bg-black/50 backdrop-blur-md p-6 rounded-xl border border-white/10 shadow-2xl">

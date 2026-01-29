@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-const API_BASE = 'http://localhost:5000/api/analytics';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/analytics';
 
 const useAnalytics = () => {
     const [loading, setLoading] = useState(false);
@@ -13,11 +13,7 @@ const useAnalytics = () => {
             if (!res.ok) throw new Error('Failed to fetch events');
             const data = await res.json();
 
-            // Filter unique meetings (events) logic could be moved to backend too, 
-            // but controller passes raw sessions currently. 
-            // Actually, we should filter in backend for cleaner API? 
-            // For now, let's keep frontend flexible or replicate logic here.
-            // Wait, controller passes ALL sessions matching query.
+
             const uniqueEvents = [];
             const map = new Map();
             for (const item of data) {
@@ -54,7 +50,7 @@ const useAnalytics = () => {
         try {
             const res = await fetch(`${API_BASE}/drivers?session_key=${session_key}`);
             if (!res.ok) throw new Error('Failed to fetch drivers');
-            return await res.json(); // Controller already unique-ifies and sorts
+            return await res.json();
         } catch (err) {
             setError(err.message);
             return [];

@@ -14,7 +14,7 @@ const getDrivers = async (req, res) => {
     try {
         const { session_key } = req.query;
         const data = await analyticsModel.getDrivers(session_key);
-        // Filter unique drivers
+
         const uniqueDrivers = [...new Map(data.map(item => [item.driver_number, item])).values()];
         res.json(uniqueDrivers.sort((a, b) => a.driver_number - b.driver_number));
     } catch (error) {
@@ -22,10 +22,10 @@ const getDrivers = async (req, res) => {
     }
 };
 
-// Complex logic moved from frontend
+
 const analyzeRace = async (req, res) => {
     try {
-        const { session_key, driver_numbers } = req.body; // Expecting array of driver numbers
+        const { session_key, driver_numbers } = req.body;
 
         if (!session_key || !driver_numbers || driver_numbers.length === 0) {
             return res.status(400).json({ error: 'Missing session_key or driver_numbers' });
@@ -34,7 +34,7 @@ const analyzeRace = async (req, res) => {
         const driverLapsMap = {};
         const telemetryMap = {};
 
-        // Fetch drivers info for colors/names
+
         const driversList = await analyticsModel.getDrivers(session_key);
 
         for (const driverNum of driver_numbers) {
@@ -53,8 +53,7 @@ const analyzeRace = async (req, res) => {
             telemetryMap[driverNum] = teleData;
         }
 
-        // Format for Frontend Charts
-        // 1. Lap Data (Bar Chart)
+
         const sortedDrivers = Object.keys(driverLapsMap).sort((a, b) => driverLapsMap[a].lap_duration - driverLapsMap[b].lap_duration);
 
         const lapData = {
@@ -74,7 +73,7 @@ const analyzeRace = async (req, res) => {
             }]
         };
 
-        // 2. Telemetry Data (Line Chart)
+
         const datasets = [];
         Object.keys(telemetryMap).forEach(driverNum => {
             const dataPoints = telemetryMap[driverNum];

@@ -51,7 +51,7 @@ export const TelemetryChart = ({ data, type = 'Speed' }) => {
             x: { type: 'linear', position: 'bottom', ticks: { color: 'white' }, grid: { color: 'rgba(255, 255, 255, 0.1)' }, title: { display: true, text: 'Distance (m) / Time', color: 'white' } }
         },
         elements: {
-            point: { radius: 0 } // Hide points for smoother lines
+            point: { radius: 0 }
         }
     };
 

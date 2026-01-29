@@ -17,7 +17,7 @@ const Selectors = ({
 }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      {/* Year Selector */}
+
       <div className="flex flex-col">
         <label className="text-white mb-2 font-orbitron">Year</label>
         <select
@@ -34,7 +34,7 @@ const Selectors = ({
         </select>
       </div>
 
-      {/* Event Selector */}
+
       <div className="flex flex-col">
         <label className="text-white mb-2 font-orbitron">Event/Country</label>
         <select
@@ -52,7 +52,7 @@ const Selectors = ({
         </select>
       </div>
 
-      {/* Session Selector */}
+
       <div className="flex flex-col">
         <label className="text-white mb-2 font-orbitron">Session</label>
         <select
@@ -70,7 +70,7 @@ const Selectors = ({
         </select>
       </div>
 
-      {/* Driver Selector (Multi-select visual) */}
+
       <div className="flex flex-col relative group">
         <label className="text-white mb-2 font-orbitron">Drivers (Max 5)</label>
         <div className="bg-black/50 border border-white/20 text-white p-2 rounded h-[42px] overflow-hidden group-hover:h-auto group-hover:absolute group-hover:top-8 group-hover:z-50 group-hover:bg-black group-hover:w-full transition-all">

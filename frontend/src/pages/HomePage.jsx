@@ -9,7 +9,7 @@ const HomePage = () => {
 
       <div className="relative min-h-screen overflow-hidden bg-black">
   
-{/* Layer 1: diagonal black → deep navy (NOT blue) */}
+
 <div
   className="
     absolute inset-0
@@ -18,7 +18,7 @@ const HomePage = () => {
   "
 />
 
-{/* Layer 2: soft blue glow (controlled) */}
+
 <div
   className="
     absolute -bottom-56 -right-56
@@ -27,7 +27,7 @@ const HomePage = () => {
   "
 />
 
-{/* Layer 3: vignette */}
+
 <div
   className="
     absolute inset-0
@@ -37,7 +37,7 @@ const HomePage = () => {
 />
 
 
-  {/* Content */}
+
   <div className="relative z-10 text-white px-10 pt-40 max-w-4xl">
     <h1 className="text-7xl font-bold tracking-tight mb-7">
       Your gateway to <br />
@@ -52,7 +52,7 @@ const HomePage = () => {
   </div>
 </div>
 
-  {/* Features Section */}
+
   <div className="bg-black py-20 relative z-20">
     <div className="container mx-auto px-10">
       <h2 className="text-4xl text-white font-orbitron font-bold text-center mb-16 relative">
@@ -62,7 +62,7 @@ const HomePage = () => {
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-        {/* Feature 1 */}
+
         <div className="p-8 group">
           <div className="w-12 h-12 bg-blue-900/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-blue-600/20 transition-colors">
             <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -73,7 +73,7 @@ const HomePage = () => {
           </p>
         </div>
 
-        {/* Feature 2 */}
+
         <div className="p-8 group">
           <div className="w-12 h-12 bg-purple-900/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-purple-600/20 transition-colors">
             <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
@@ -84,7 +84,7 @@ const HomePage = () => {
           </p>
         </div>
 
-        {/* Feature 3 */}
+
         <div className="p-8 group">
            <div className="w-12 h-12 bg-red-900/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-red-600/20 transition-colors">
             <svg className="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -98,9 +98,9 @@ const HomePage = () => {
     </div>
   </div>
 
-  {/* About / CTA Section */}
+
   <div className="bg-black py-24 relative overflow-hidden">
-     {/* Background glow for this section */}
+
     <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-900/10 blur-[100px] rounded-full"></div>
     </div>
@@ -119,7 +119,7 @@ const HomePage = () => {
              </Link>
         </div>
         
-        {/* Visual Element (Abstract or UI Mockup placeholder) */}
+
         <div className="md:w-1/2 relative">
             <div className="relative z-10 bg-gray-900/50 backdrop-blur-xl border border-white/10 p-6 rounded-2xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
                 <div className="flex items-center gap-2 mb-4">

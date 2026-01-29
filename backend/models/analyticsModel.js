@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-// Helper to fetch from OpenF1
+
 const fetchOpenF1 = async (endpoint, params = {}) => {
     const url = new URL(`https://api.openf1.org/v1/${endpoint}`);
     Object.keys(params).forEach(key => {
@@ -31,8 +31,7 @@ const getLaps = async (session_key, driver_number) => {
 };
 
 const getCarData = async (driver_number, session_key, date_start, date_end) => {
-    // Manually construct URL for date comparison operators which might be tricky with URLSearchParams
-    // Using direct string manipulation for safety with OpenF1's specific syntax
+
     let url = `https://api.openf1.org/v1/car_data?driver_number=${driver_number}&session_key=${session_key}`;
     if (date_start) url += `&date>=${date_start}`;
     if (date_end) url += `&date<=${date_end}`;
