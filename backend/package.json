@@ -14,7 +14,10 @@
     "chart.js": "^4.5.1",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "firebase": "^12.9.0",
+    "firebase-admin": "^13.6.1",
+    "mongoose": "^9.4.1"
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.4"
