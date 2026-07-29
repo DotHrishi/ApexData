@@ -6,7 +6,6 @@ import { BACKEND_URL, AI_AGENT_URL } from '../config/api';
 const API_ENDPOINTS = [
   `${BACKEND_URL}/api/strategy/recommend`,
   `${AI_AGENT_URL}/strategy/recommend`,
-  "/api/strategy/recommend",
 ];
 
 export async function fetchStrategyRecommendation(telemetryInput) {
