@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import { BACKEND_URL } from '../config/api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Tooltip, Legend, Filler } from "chart.js";
@@ -56,7 +57,7 @@ const Analytics = () => {
   ];
 
   useEffect(() => {
-    fetch('http://localhost:5000/sessions')
+    fetch(`${BACKEND_URL}/sessions`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
@@ -91,11 +92,11 @@ const Analytics = () => {
     if (!selectedSession) return;
     setLoading(true);
     
-    const fetchDriver1 = fetch(`http://localhost:5000/carData?driver_number=${selectedDriver}&session_key=${selectedSession}`).then(res => res.json());
+    const fetchDriver1 = fetch(`${BACKEND_URL}/carData?driver_number=${selectedDriver}&session_key=${selectedSession}`).then(res => res.json());
     let fetchPromises = [fetchDriver1];
     
     if (isComparing) {
-      const fetchDriver2 = fetch(`http://localhost:5000/carData?driver_number=${selectedDriver2}&session_key=${selectedSession}`).then(res => res.json());
+      const fetchDriver2 = fetch(`${BACKEND_URL}/carData?driver_number=${selectedDriver2}&session_key=${selectedSession}`).then(res => res.json());
       fetchPromises.push(fetchDriver2);
     }
 

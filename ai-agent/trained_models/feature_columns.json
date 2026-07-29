@@ -1,0 +1,16 @@
+[
+  "CompoundEncoded",
+  "TyreLife",
+  "LapNumber",
+  "EstimatedFuelLoad",
+  "ApproxFuelCorrectedLapTime",
+  "TrackTemp",
+  "AirTemp",
+  "Humidity",
+  "Pressure",
+  "RollingAvgPace3",
+  "RollingAvgPace5",
+  "LapTimeDelta",
+  "RaceProgress",
+  "StintProgress"
+]

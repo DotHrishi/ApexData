@@ -1,0 +1,58 @@
+services:
+  # ─────────────────────────────────────────────────
+  # Service 1: Express.js API Gateway
+  # ─────────────────────────────────────────────────
+  - type: web
+    name: apexdata-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: MONGODB_URI
+        sync: false   # Set manually in Render dashboard
+      - key: NEWS_API_KEY
+        sync: false   # Set manually in Render dashboard
+      - key: PYTHON_AI_URL
+        sync: false   # Set after ai-agent is deployed
+      - key: ALLOWED_ORIGINS
+        sync: false   # Set to your Vercel URL after frontend is deployed
+    healthCheckPath: /
+
+  # ─────────────────────────────────────────────────
+  # Service 2: FastAPI ai-agent (XGBoost Engine)
+  # ─────────────────────────────────────────────────
+  - type: web
+    name: apexdata-ai-agent
+    runtime: python
+    rootDir: ai-agent
+    buildCommand: pip install uv && uv sync
+    startCommand: uv run uvicorn api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: ALLOWED_ORIGINS
+        sync: false   # Set to your Vercel URL after frontend is deployed
+    healthCheckPath: /health
+
+  # ─────────────────────────────────────────────────
+  # Service 3: FastAPI f1-strategy-ai (Pit Wall Analyzer)
+  # ─────────────────────────────────────────────────
+  - type: web
+    name: apexdata-f1-strategy-ai
+    runtime: python
+    rootDir: f1-strategy-ai
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PORT
+        value: 8001
+      - key: GROQ_API_KEY
+        sync: false   # Set manually in Render dashboard
+      - key: OPENWEATHER_API_KEY
+        sync: false   # Set manually in Render dashboard
+      - key: ALLOWED_ORIGINS
+        sync: false   # Set to your Vercel URL after frontend is deployed
+    healthCheckPath: /health

@@ -1,15 +1,37 @@
 # Python
 .venv/
+venv/
 __pycache__/
 *.pyc
+*.pyo
 cache/
+.pytest_cache/
 
 # Node / React
 node_modules/
 dist/
+build/
 
 # Env
 .env
+.env.local
+.env.production
 
 # OS
 .DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Generated model evaluation reports
+ai-agent/reports/*.png
+ai-agent/reports/*.csv
+ai-agent/reports/v*/
+
+# Generated screenshots
+screenshots/
+
+# Temporary outputs
+val_results.txt

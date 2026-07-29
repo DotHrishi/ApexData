@@ -1,0 +1,52 @@
+{
+  "version": "v1",
+  "trained_timestamp": "2026-07-28T23:48:05.080926",
+  "model_type": "XGBoostRegressor",
+  "best_hyperparameters": {
+    "subsample": 0.9,
+    "n_estimators": 300,
+    "min_child_weight": 5,
+    "max_depth": 3,
+    "learning_rate": 0.1,
+    "colsample_bytree": 0.7
+  },
+  "dataset_samples": 21763,
+  "train_samples": 17553,
+  "test_samples": 4210,
+  "features": [
+    "CompoundEncoded",
+    "TyreLife",
+    "LapNumber",
+    "EstimatedFuelLoad",
+    "ApproxFuelCorrectedLapTime",
+    "TrackTemp",
+    "AirTemp",
+    "Humidity",
+    "Pressure",
+    "RollingAvgPace3",
+    "RollingAvgPace5",
+    "LapTimeDelta",
+    "RaceProgress",
+    "StintProgress"
+  ],
+  "target": "TargetNextLapTime",
+  "test_metrics": {
+    "rmse": 0.8589,
+    "mae": 0.6261,
+    "r2": 0.9798,
+    "mape_pct": 0.6927
+  },
+  "cross_validation_metrics": {
+    "cv_rmse_mean": 1.4942,
+    "cv_rmse_std": 0.544,
+    "cv_r2_mean": 0.9663,
+    "cv_r2_std": 0.0242
+  },
+  "baseline_comparison": {
+    "linear_regression_rmse": 0.6398,
+    "random_forest_rmse": 1.0269,
+    "xgboost_rmse": 0.8589,
+    "rmse_improvement_pct": -34.25
+  },
+  "training_duration_seconds": 15.17
+}

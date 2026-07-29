@@ -2,13 +2,14 @@ import React, { use } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
+import { BACKEND_URL } from "../config/api";
 
 const News = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/news")
+    fetch(`${BACKEND_URL}/news`)
       .then((res) => res.json())
       .then((data) => {
         setNews(data);

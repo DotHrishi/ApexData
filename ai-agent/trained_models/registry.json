@@ -1,0 +1,19 @@
+{
+  "production_version": "v2",
+  "best_rmse": 0.8053,
+  "best_r2": 0.9936,
+  "versions": {
+    "v1": {
+      "timestamp": "2026-07-28T23:48:08.868917",
+      "rmse": 0.8589,
+      "r2": 0.9798,
+      "promoted_to_production": true
+    },
+    "v2": {
+      "timestamp": "2026-07-29T13:21:01.258976",
+      "rmse": 0.8053,
+      "r2": 0.9936,
+      "promoted_to_production": true
+    }
+  }
+}

@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import logo from '/logo.png';
 
 const Navbar = () => {
   return (
-    <nav className="sticky top-0 left-0 w-full z-50 text-white bg-[#000000]">
+    <nav className="sticky top-0 left-0 w-full z-50 text-white bg-[#000000] border-b border-white/10">
       <div className="max-w-7xl mx-auto px-10 py-6 grid grid-cols-3 items-center orbitron">
 
+        <motion.div initial={{ opacity: 1 }} animate={{ opacity: 1 }} className="hidden" />
 
         <div className="flex items-center gap-2">
           <Link to="/">
@@ -13,13 +15,13 @@ const Navbar = () => {
           </Link>
         </div>
 
-
         <ul className="flex items-center justify-center gap-9 text-md text-white">
           {[
             { name: "Home", path: "/" },
             { name: "Analytics", path: "/analytics" },
-            { name: "Strategy", path: "https://dothrishi-ai-f1-strategy-maker-app-mqahah.streamlit.app/" },
-            { name: "News", path: "/news" }
+            { name: "RaceSimAI", path: "/racesim-ai" },
+            { name: "News", path: "/news" },
+            { name: "Technical", path: "/technical" },
           ].map((item) => (
             <li key={item.name}>
               <Link
@@ -41,7 +43,7 @@ const Navbar = () => {
 
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
