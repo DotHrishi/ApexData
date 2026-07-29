@@ -4,10 +4,5 @@
   "framework": "vite",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
-  ],
-  "env": {
-    "VITE_BACKEND_URL": "@vite_backend_url",
-    "VITE_AI_AGENT_URL": "@vite_ai_agent_url",
-    "VITE_STRATEGY_AI_URL": "@vite_strategy_ai_url"
-  }
+  ]
 }
