@@ -67,6 +67,7 @@ const F1StrategyPro = () => {
   const [data, setData] = useState(null);
   const [validationText, setValidationText] = useState('Loading validation output...');
   const [isLoading, setIsLoading] = useState(false);
+  const [retryStatus, setRetryStatus] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -74,42 +75,73 @@ const F1StrategyPro = () => {
     handleAnalyze();
   }, []);
 
+  const fetchWithRetry = async (url, options = {}, retries = 2, delayMs = 2500, onRetry = null) => {
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      try {
+        const response = await fetch(url, options);
+        if (response.ok) return response;
+        if (attempt < retries && (response.status >= 500 || response.status === 404)) {
+          if (onRetry) onRetry(attempt + 1);
+          await new Promise((r) => setTimeout(r, delayMs));
+          continue;
+        }
+        return response;
+      } catch (err) {
+        if (attempt === retries) throw err;
+        if (onRetry) onRetry(attempt + 1);
+        await new Promise((r) => setTimeout(r, delayMs));
+      }
+    }
+  };
+
   const fetchValidation = async () => {
     try {
-      const res = await fetch(`${STRATEGY_AI_URL}/api/validation`);
-      const val = await res.json();
-      setValidationText(val.output || 'No validation output.');
+      const res = await fetchWithRetry(`${STRATEGY_AI_URL}/api/validation`, {}, 1, 2000);
+      if (res && res.ok) {
+        const val = await res.json();
+        setValidationText(val.output || 'No validation output.');
+        return;
+      }
     } catch {
-      setValidationText(
-        "F1 Strategy Engine Validation Results\n========================================\nRaces tested: 14\nSuccessful validations: 12\nAverage time prediction error: 6.8%\nPit strategy match rate: 42%\n\nNote: Weather data fetched from OpenWeather API"
-      );
+      // Fallback text if backend is waking up or off
     }
+    setValidationText(
+      "F1 Strategy Engine Validation Results\n========================================\nRaces tested: 14\nSuccessful validations: 12\nAverage time prediction error: 6.8%\nPit strategy match rate: 42%\n\nNote: Weather data fetched from OpenWeather API"
+    );
   };
 
   const handleAnalyze = async (e) => {
     if (e) e.preventDefault();
     setIsLoading(true);
     setError(null);
+    setRetryStatus(null);
 
     try {
-      const res = await fetch(`${STRATEGY_AI_URL}/api/strategy/analyze`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ track, team, use_llm: useLlm }),
-      });
+      const res = await fetchWithRetry(
+        `${STRATEGY_AI_URL}/api/strategy/analyze`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ track, team, use_llm: useLlm }),
+        },
+        2,
+        3000,
+        (attempt) => setRetryStatus(`Waking up Render engine (Attempt ${attempt}/3)...`)
+      );
 
       const result = await res.json();
 
-      if (result.success) {
+      if (res.ok && result.success) {
         setData(result);
       } else {
         setError(result.detail || 'Failed to generate strategy simulation.');
       }
     } catch (err) {
       console.error('API Error:', err);
-      setError(`Unable to reach F1 Strategy AI engine at ${STRATEGY_AI_URL}`);
+      setError(`Unable to reach F1 Strategy AI engine at ${STRATEGY_AI_URL}. Ensure the Render service is deployed and CORS is configured.`);
     } finally {
       setIsLoading(false);
+      setRetryStatus(null);
     }
   };
 
@@ -158,6 +190,13 @@ const F1StrategyPro = () => {
           <span>Telemetry Server Online (8001)</span>
         </div>
       </div>
+
+      {retryStatus && (
+        <div className="bg-amber-950/40 border border-amber-700/80 text-amber-300 p-3.5 rounded-xl text-xs font-tech-mono flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+          ⏳ {retryStatus}
+        </div>
+      )}
 
       {error && (
         <div className="bg-red-950/40 border border-red-800 text-red-300 p-3.5 rounded-xl text-xs font-tech-mono">

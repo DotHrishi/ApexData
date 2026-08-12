@@ -37,18 +37,35 @@ app = FastAPI(
 )
 
 # Enable CORS for frontend integration
-# CORS: read allowed origins from env, fallback to wildcard in development
 import os as _os
-_raw_origins = _os.getenv("ALLOWED_ORIGINS", "*")
-_allowed_origins = [o.strip() for o in _raw_origins.split(",")] if _raw_origins != "*" else ["*"]
+_raw_origins = _os.getenv("ALLOWED_ORIGINS", "")
+if not _raw_origins or _raw_origins.strip() == "*":
+    _cors_kwargs = {
+        "allow_origins": ["*"],
+        "allow_origin_regex": r"https?://.*",
+        "allow_credentials": True,
+        "allow_methods": ["*"],
+        "allow_headers": ["*"],
+    }
+else:
+    _parsed_origins = [o.strip().rstrip("/") for o in _raw_origins.split(",") if o.strip()]
+    if "*" in _parsed_origins:
+        _cors_kwargs = {
+            "allow_origins": ["*"],
+            "allow_origin_regex": r"https?://.*",
+            "allow_credentials": True,
+            "allow_methods": ["*"],
+            "allow_headers": ["*"],
+        }
+    else:
+        _cors_kwargs = {
+            "allow_origins": _parsed_origins,
+            "allow_credentials": True,
+            "allow_methods": ["*"],
+            "allow_headers": ["*"],
+        }
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=_allowed_origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+app.add_middleware(CORSMiddleware, **_cors_kwargs)
 
 # Global engine instance and startup timestamp
 engine: Optional[StrategyRecommendationEngine] = None

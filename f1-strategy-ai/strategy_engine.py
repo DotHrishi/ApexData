@@ -8,10 +8,14 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent
+
 # Load precomputed
-deg_models = joblib.load('models/deg_models.pkl')
-pit_time = joblib.load('models/pit_time.pkl')
-track_laps_dict = joblib.load('models/track_laps.pkl')
+deg_models = joblib.load(BASE_DIR / 'models/deg_models.pkl')
+pit_time = joblib.load(BASE_DIR / 'models/pit_time.pkl')
+track_laps_dict = joblib.load(BASE_DIR / 'models/track_laps.pkl')
 
 # Track coords for weather (lat, lon)
 TRACK_COORDS = {
@@ -233,36 +237,28 @@ def optimize_strategy(track: str, team: str = 'Other', weather: Dict = None) -> 
     return best_strat, best_time, pit_laps, best_analytics
 
 # Optional: LLM explanation (Groq)
-try:
-    from groq import Groq
-    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+def explain_strategy(strategy, track, weather):
+    groq_key = os.getenv("GROQ_API_KEY")
+    if not groq_key:
+        return "GROQ_API_KEY is not set in environment variables. Add GROQ_API_KEY on Render to enable AI narrative explanations."
 
-    def explain_strategy(strategy, track, weather):
-        try:
-            prompt = f"""
-            You are an F1 strategy engineer. Analyze this strategy:
-            Track: {track}
-            Weather: {weather}
-            Strategy: {strategy}
-            Explain briefly how this helps optimize tire degradation, pit timing, and performance.
-            """
-
-            response = client.chat.completions.create(
-                model="llama-3.1-8b-instant",
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=300,
-            )
-
-            return response.choices[0].message.content
-
-        except Exception as e:
-            return f"LLM Error: {str(e)}. Check your GROQ_API_KEY."
-
-except ImportError:
-    def explain_strategy(*args):
-        return "Groq SDK not installed. Run: pip install groq"
-
-except Exception as e:
-    # catch import-time errors (invalid key, API issues)
-    def explain_strategy(*args, err=e):
-        return f"Groq initialization error: {str(err)}"
+    try:
+        from groq import Groq
+        client = Groq(api_key=groq_key)
+        prompt = f"""
+        You are an F1 race strategy engineer. Analyze this strategy:
+        Track: {track}
+        Weather: {weather}
+        Strategy: {strategy}
+        Explain briefly in 2-3 concise paragraphs how this helps optimize tire degradation, pit timing, and overall race time.
+        """
+        response = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=300,
+        )
+        return response.choices[0].message.content
+    except ImportError:
+        return "Groq SDK is not installed on the server."
+    except Exception as e:
+        return f"Groq AI Narrative generation error: {str(e)}"

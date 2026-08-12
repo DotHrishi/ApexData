@@ -21,6 +21,8 @@ if (!import.meta.env.VITE_STRATEGY_AI_URL) {
   console.error('[ApexData] VITE_STRATEGY_AI_URL is not set. Check your Vercel environment variables.');
 }
 
-export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-export const AI_AGENT_URL = import.meta.env.VITE_AI_AGENT_URL;
-export const STRATEGY_AI_URL = import.meta.env.VITE_STRATEGY_AI_URL;
+const cleanUrl = (url) => (url ? String(url).trim().replace(/\/$/, '') : '');
+
+export const BACKEND_URL = cleanUrl(import.meta.env.VITE_BACKEND_URL);
+export const AI_AGENT_URL = cleanUrl(import.meta.env.VITE_AI_AGENT_URL);
+export const STRATEGY_AI_URL = cleanUrl(import.meta.env.VITE_STRATEGY_AI_URL);

@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 
 // CORS: read allowed origins from env, fallback to open in development
 const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
+  ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim().replace(/\/$/, '')).filter(Boolean)
   : true; // true = allow all origins (used in local development)
 
 app.use(correlationIdMiddleware);
